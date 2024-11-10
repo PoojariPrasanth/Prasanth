@@ -1,0 +1,134 @@
+import java.util.ArrayList;
+class Response{
+    private ResultBlock resultBlock;
+    public Response(){
+        
+    }
+    public Response(ResultBlock resultBlock){
+        this.resultBlock=resultBlock;
+    }
+    public void disp(){
+        System.out.println(resultBlock.api.getRetStatus());
+        System.out.println(resultBlock.api.getErrorMessage());
+        System.out.println(resultBlock.api.getSysErrorCode());
+        System.out.println(resultBlock.api.getSysErrorMessage());
+        System.out.println(resultBlock.matchDetails.match.getEntity());
+        System.out.println(resultBlock.matchDetails.match.getMatchType());
+        System.out.println(resultBlock.matchDetails.match.getScore());
+    }
+}
+class ResultBlock{
+    public API api;
+    public MatchDetails matchDetails;
+    public ResultBlock(){
+        
+    }
+    public ResultBlock(API api,MatchDetails matchDetails){
+        this.matchDetails=matchDetails;
+        this.api=api;
+    }
+    public API getAPI(){
+        return api;
+    }
+    public MatchDetails getMatchDetails(){
+        return matchDetails;
+    }
+}
+// class ErrorWarnings{
+    
+// }
+// class Errors{
+//     private int errorCount;
+    
+// }
+// class Warnings{
+//     private int warningCount;
+    
+// }
+// class Warning{
+//     private Long Number;
+//     private String Message;
+//     private ArrayList<String> values;
+    
+// }
+class MatchDetails{
+     public Match match;
+     public MatchDetails(){
+             
+    }
+    public MatchDetails(Match match){
+         System.out.println(match.getEntity()+""+match.getMatchType()+" "+match.getScore());
+         this.match=match;
+    }
+    
+}
+class Match{
+    private String entity;
+    private String matchType;
+    private int score;
+    public Match(){
+        
+    }
+    public Match(String entity,String matchType,int score){
+        this.entity=entity;
+        this.matchType=matchType;
+        this.score=score;
+    }
+    public String getEntity(){
+        return entity;
+    }
+    public String getMatchType(){
+        return matchType;
+    }
+    public int getScore(){
+        return score;
+    }
+ 
+    
+}
+class API{
+    private boolean RetStatus;
+    private String ErrorMessage;
+    private int SysErrorCode;
+    private String SysErrorMessage;
+    public API(){
+        
+    }
+    public API(boolean RetStatus,String ErrorMessage,int SysErrorCode,String SysErrorMessage){
+        this.RetStatus=RetStatus;
+        this.ErrorMessage=ErrorMessage;
+        this.SysErrorCode=SysErrorCode;
+        this.SysErrorMessage=SysErrorMessage;
+    }
+    public boolean getRetStatus(){
+        return RetStatus;
+    }
+    public String getErrorMessage(){
+        return ErrorMessage;
+    }
+    public int getSysErrorCode(){
+        return SysErrorCode;
+    }
+    public String getSysErrorMessage(){
+        return SysErrorMessage;
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	    ArrayList<Match> m=new ArrayList<Match>();
+	    API api=new API(false,"ErrorMessage",101,"SystemErrorMessage");
+	    Match match=new Match("Entity","matchType",35);
+	    Match match1=new Match("Entity1","matchType1",50);
+	    m.add(match);
+	    m.add(match1);
+	    MatchDetails matchDetails=new MatchDetails(match);
+	    MatchDetails matchDetails1=new MatchDetails(match1);
+	    ResultBlock rb=new ResultBlock(api,matchDetails);
+		Response r=new Response(rb);
+		//Response r1=new Response(api);
+		r.disp();
+		
+	}
+}
